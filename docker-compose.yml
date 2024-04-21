@@ -1,0 +1,21 @@
+version: '3.8'
+ services:
+ wordpress1: image: wordpress environment: 
+      WORDPRESS_DB_HOST: mariadb WORDPRESS_DB_USER: user1.wp 
+      WORDPRESS_DB_PASSWORD: user1psw.wp WORDPRESS_DB_NAME: 
+      dbmaria
+    networks: - frontend - backend
+ wordpress2: image: wordpress 
+    environment:
+      WORDPRESS_DB_HOST: mariadb WORDPRESS_DB_USER: user2.wp 
+      WORDPRESS_DB_PASSWORD: user2psw.wp  WORDPRESS_DB_NAME: 
+      dbmaria
+    networks: - frontend - backend
+ mariadb: image: mariadb environment: 
+      MYSQL_ROOT_PASSWORD: rootpsw  MYSQL_DATABASE: dbmaria 
+      MYSQL_USER: root MYSQL_PASSWORD: pswmysqld
+    networks: - backend nginx: image: nginx volumes: - 
+      ./nginx.conf:/etc/nginx/nginx.conf
+    ports: - "80:80" networks: - frontend - backend networks: 
+  frontend:
+  backend:  
